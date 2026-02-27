@@ -29,11 +29,14 @@ This tool aims to:
 - Serve as a foundation for further algorithmic research
 
 ## 📂 Project Structure
+
+```text
 .
-├── index.html # Main interface
-├── main.js # Core logic
-├── fpq.js # FPQ-tree structures and algorithms
-├── visualize.js # Visualization utilities
-├── style.css # Styling
+├── index.html        # Main interface
+├── main.js           # Core logic
+├── fpq.js            # FPQ-tree structures and algorithms
+├── visualize.js      # Visualization utilities
+├── style.css         # Styling
 ├── package.json
 └── .gitignore
+```
