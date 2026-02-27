@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FPQ-Tree Intersection</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+</head>
+<body>
+
+<!-- ── Header ───────────────────────────────────────── -->
+<header>
+  <div class="header-title">
+    <h1>FPQ-Tree Intersection</h1>
+    <!--<span class="header-subtitle">Algoritmo esponenziale · D3.js</span> -->
+  </div>
+  <div class="type-pills">
+    <span class="pill pill-p">P  permutabile</span>
+    <span class="pill pill-q">Q  reversibile</span>
+    <span class="pill pill-f">F  fisso</span>
+  </div>
+</header>
+
+<!-- ── Esempi rapidi ─────────────────────────────────── -->
+<div class="examples-bar">
+  <span class="examples-label">Esempi</span>
+  <button class="example-btn"
+    data-t1="P(0,1,2)"
+    data-t2="Q(0,1,2)"
+    title="P vs Q sulle stesse 3 foglie">P(0,1,2) ∩ Q(0,1,2)</button>
+
+  <button class="example-btn"
+    data-t1="P(Q(0,1),2)"
+    data-t2="Q(P(0,1),2)"
+    title="P e Q annidati">P(Q(0,1),2) ∩ Q(P(0,1),2)</button>
+
+  <button class="example-btn"
+    data-t1="F(0,1,2,3)"
+    data-t2="P(0,1,2,3)"
+    title="F fisso vs P libero">F(0,1,2,3) ∩ P(0,1,2,3)</button>
+
+  <button class="example-btn"
+    data-t1="P(F(0,1),Q(2,3))"
+    data-t2="Q(F(0,1),P(2,3))"
+    title="Alberi misti">P(F(0,1),Q(2,3)) ∩ Q(F(0,1),P(2,3))</button>
+
+  <button class="example-btn"
+    data-t1="P(0,1,2,3)"
+    data-t2="F(Q(0,1),Q(2,3))"
+    title="Intersezione con F radice">P(0,1,2,3) ∩ F(Q(0,1),Q(2,3))</button>
+</div>
+
+<!-- ── Input ─────────────────────────────────────────── -->
+<div class="input-section">
+  <div class="input-group">
+    <label for="tree1-input">Albero 1</label>
+    <input id="tree1-input"
+           type="text"
+           placeholder="es. P(F(0,1),Q(2,3))"
+           spellcheck="false"
+           autocomplete="off">
+  </div>
+  <div class="input-group">
+    <label for="tree2-input">Albero 2</label>
+    <input id="tree2-input"
+           type="text"
+           placeholder="es. Q(P(0,1),2,3)"
+           spellcheck="false"
+           autocomplete="off">
+  </div>
+  <div class="btn-row">
+    <button id="compute-btn">Calcola ∩</button>
+    <button id="clear-btn">Reset</button>
+  </div>
+</div>
+
+<!-- ── Error bar ─────────────────────────────────────── -->
+<div id="error-bar" class="hidden"></div>
+
+<!-- ── Pannelli alberi ────────────────────────────────── -->
+<div class="trees-container">
+
+  <!-- Albero 1 -->
+  <div class="tree-panel">
+    <div class="panel-header">
+      <span class="panel-title">Albero 1</span>
+      <span class="perm-badge" id="badge1"></span>
+    </div>
+    <div class="svg-wrapper" id="wrapper1">
+      <div class="empty-msg">Inserisci un albero e premi «Calcola»</div>
+    </div>
+  </div>
+
+  <!-- Albero 2 -->
+  <div class="tree-panel">
+    <div class="panel-header">
+      <span class="panel-title">Albero 2</span>
+      <span class="perm-badge" id="badge2"></span>
+    </div>
+    <div class="svg-wrapper" id="wrapper2">
+      <div class="empty-msg">Inserisci un albero e premi «Calcola»</div>
+    </div>
+  </div>
+
+  <!-- Risultato -->
+  <div class="tree-panel result-panel">
+    <div class="panel-header">
+      <span class="panel-title">Intersezione</span>
+      <span class="perm-badge" id="badge-result"></span>
+    </div>
+    <div class="svg-wrapper" id="wrapper-result">
+      <div class="empty-msg">Il risultato apparirà qui</div>
+    </div>
+    <div class="perms-panel">
+      <div id="perms-list"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Legenda ────────────────────────────────────────── -->
+<div class="legend">
+  <span class="legend-title">Legenda</span>
+
+  <div class="legend-item">
+    <div class="legend-dot ld-p"></div>
+    <span>Nodo P (cerchio) — figli in qualsiasi ordine</span>
+  </div>
+
+  <div class="legend-item">
+    <div class="legend-rect lr-q"></div>
+    <span>Nodo Q (rettangolo) — originale o rovesciato</span>
+  </div>
+
+  <div class="legend-item">
+    <div class="legend-rect lr-f"></div>
+    <span>Nodo F (rettangolo F) — ordine fisso</span>
+  </div>
+
+  <div class="legend-item">
+    <div class="legend-dot ld-leaf"></div>
+    <span>Foglia — valore numerico</span>
+  </div>
+</div>
+
+<script src="fpq.js"></script>
+<script src="visualize.js"></script>
+<script src="main.js"></script>
+
+</body>
+</html>
